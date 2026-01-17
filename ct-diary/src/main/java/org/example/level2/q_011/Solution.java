@@ -1,4 +1,4 @@
-package org.example.level2.problem_011;
+package org.example.level2.q_011;
 
 import java.util.*;
 class Solution
