@@ -1,35 +1,47 @@
 package org.example.level2.q_016;
 
-import java.util.Stack;
-
+import java.util.*;
 class Solution {
-  public int[] solution(int[] prices)  {
-    int[] answer = new int[prices.length];
+  public int[] solution(int[] progresses, int[] speeds) {
+    ArrayList<Integer> result = new ArrayList<>();
 
-    Stack<Integer> stack = new Stack();
-    stack.push(0);
 
-    for(int i = 1; i < prices.length; i++){
+    // 1. 남은 일수를 구하고 해당 값을 배열에 저장
+    // 2. 처음부터 반복문을 돌면서 max값을 저장하고
+    // 2-1. max값보다 큰 값이 나오기전에 count를 +1한다.
+    // 2- 2. max값보다 크면 해당 카운트를 결과 배열에 넣는다.
 
-      // 스택에 항상 이전에 가격이 떨어지지 않은 인덱스
-      // prices[stack.peek()]은 이전 값
-      // 1 -> prices[1] 2 < 1
-      // 2 -> prices[2] 3 < 2
-      // 3 -> prices[3] 2 < 3 더 작으면
+    ArrayDeque<Integer> leftDayList = new ArrayDeque<>();
+    for(int i = 0 ; i < progresses.length; i++){
+      int leftPercent = 100 - progresses[i];  // [7 , 70, 45]
 
-      // prices[i]가 더 작은 경우 주식 가격이 떨어진 순간
-      while(!stack.isEmpty() && prices[i] < prices[stack.peek()]){
-        int j = stack.pop(); // 이전 인덱스 제거하고 2가 빠져나가고
-        answer[j] = i - j; // 이전 인덱스 길이 확정, answer[2] = 3 - 2 = 1 // 현재 인덱스 - 이전 인덱스
+      // 그냥 올림하면 되는데 기억이 안나
+      int leftDay = leftPercent / speeds[i];
+      if(leftPercent % speeds[i] != 0) leftDay++;
+      leftDayList.add(leftDay);
+    }
+
+    // leftDayList = [7, 3, 9] // 7일째에 2개의 기능, 9일째에 1개의 기능이 배포가능
+    // [1, 30, 5]
+    int max = leftDayList.peekFirst(); // 7
+    int count = 0;
+    while(!leftDayList.isEmpty()){ // 3,9
+      int item = leftDayList.pollFirst();
+      // 이전값 7은 9보다 작기 때문에 이전값들 모두 제출
+
+      // 남은 9는 어떻게 하지
+      // 남은값들을 처리하는 법을 모르겠네..
+      if(max < item) {
+        result.add(count);
       }
-      stack.push(i); // 인덱스 푸시 // [0, 1, 3]
-    }
 
-    // 끝까지 가격이 떨어지지 않은 인덱스
-    while(!stack.isEmpty()){
-      int j = stack.pop(); // 0
-      answer[j] = prices.length - 1 - j ; // answer[0] = 5 - 1 - 0
+      // 이전값 7은 7과 같기 때문에 배포 가능
+      // 2. 이전값 7이 3보다 크기 때문에 배포 가능
+      else {
+        count++;
+      }
+
     }
-    return answer;
+    return result.stream().mapToInt(Integer::intValue).toArray();
   }
 }

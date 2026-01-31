@@ -1,35 +1,33 @@
 package org.example.level2.q_012;
 
-import java.util.Stack;
+import java.util.*;
 
-class Solution_v2 {
+class Solution_2 {
   public int[] solution(int[] prices)  {
-    int[] answer = new int[prices.length];
 
-    Stack<Integer> stack = new Stack();
-    stack.push(0);
+    // 가격이 떨어지지 않은 기간
+    int[] result = new int[prices.length];
 
-    for(int i = 1; i < prices.length; i++){
+    // 인덱스
+    ArrayDeque<Integer> stack = new ArrayDeque<>();
+    stack.push(0); // 첫번째는 가격이 떨어질 수 없으니 0을 삽입
+    for(int i =1 ; i< prices.length; i ++){
 
-      // 스택에 항상 이전에 가격이 떨어지지 않은 인덱스
-      // prices[stack.peek()]은 이전 값
-      // 1 -> prices[1] 2 < 1
-      // 2 -> prices[2] 3 < 2
-      // 3 -> prices[3] 2 < 3 더 작으면
-
-      // prices[i]가 더 작은 경우 주식 가격이 떨어진 순간
+      // 스택이 비어있지 않고, 현재 가격이 스택의 마지막 인덱스 가격(직전 가격)보다 낮으면
       while(!stack.isEmpty() && prices[i] < prices[stack.peek()]){
-        int j = stack.pop(); // 이전 인덱스 제거하고 2가 빠져나가고
-        answer[j] = i - j; // 이전 인덱스 길이 확정, answer[2] = 3 - 2 = 1 // 현재 인덱스 - 이전 인덱스
+        int lastIndex = stack.pop(); // 마지막 인덱스값을 가져와서 현재인덱스와 빼면 길이
+        result[lastIndex] = i - lastIndex;
       }
-      stack.push(i); // 인덱스 푸시 // [0, 1, 3]
+
+      // 가격이 떨어지지 않았을때 인덱스값을 주입
+      stack.push(i);
     }
 
-    // 끝까지 가격이 떨어지지 않은 인덱스
+    // 단 한번도 값이 떨어지지 않은 경우
     while(!stack.isEmpty()){
-      int j = stack.pop(); // 0
-      answer[j] = prices.length - 1 - j ; // answer[0] = 5 - 1 - 0
+      int index = stack.pop();
+      result[index] = prices.length  - index - 1;
     }
-    return answer;
+    return result;
   }
 }
