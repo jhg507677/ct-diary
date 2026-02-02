@@ -24,47 +24,28 @@ Level : medium
  * }
  */
 class Solution {
-  public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-    List<List<Integer>> result = new ArrayList<>();
-    if (root == null) return result;
-
+  // 최대 깊이를 구해라
+  public int maxDepth(TreeNode root) {
+    int result = 0;
+    if(root == null) return result;
     ArrayDeque<TreeNode> queue = new ArrayDeque<>();
     queue.add(root);
 
-    boolean leftToRight = true;
-
-    while (!queue.isEmpty()) {
-      int size = queue.size();
-      List<Integer> level = new ArrayList<>(size);
-
-      for (int i = 0; i < size; i++) {
-        TreeNode cur = queue.pollFirst();
-
-        if (leftToRight) {
-          level.add(cur.val);
-        } else {
-          // 0번 인덱스에 현재값을 넣는다. 앞에 끼워넣기가 가능하게 됨
-          level.add(0, cur.val);\
-        }
-
-        if (cur.left != null) queue.addLast(cur.left);
-        if (cur.right != null) queue.addLast(cur.right);
+    while(!queue.isEmpty()){
+      result++;
+      int siCount = queue.size(); // 형제 개수 고정
+      for(int i = 0 ; i < siCount; i++){
+        TreeNode firstSi = queue.pollFirst();
+        if(firstSi.left != null) queue.addLast(firstSi.left);
+        if(firstSi.right != null) queue.addLast(firstSi.right);
       }
-
-      result.add(level);
-      leftToRight = !leftToRight; // 방향 토글
     }
-
     return result;
   }
 }
 ```
 
 ## 기술회고
-```java
-해당 부분 강조!!!!
-// 0번 인덱스에 현재값을 넣는다. 앞에 끼워넣기가 가능하게 됨
-level.add(0, cur.val);
-```
+
 ## 회고
-!!!!!!!
+드디어 맞췄네......
