@@ -15,7 +15,8 @@ Level : 1
 ## 개선사항
 ### ArrayDeque 확실히 공부할 
 것
-ArrayDeque<String> c1 = new ArrayDeque<>(Arrays.asList(card1)); 하면 한번에 변환됨
+ArrayDeque<String> c1 = new ArrayDeque<>(Arrays.asList(card1)); 하면 한번에 
+변환됨
 
 ArrayDeque의 동작
 | 동작             | Stack 메서드 | Queue 메서드 | 비고                        |

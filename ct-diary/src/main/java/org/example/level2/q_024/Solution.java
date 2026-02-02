@@ -1,6 +1,8 @@
-package org.example.level2.q_021;
+package org.example.level2.q_024;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 class Solution {
   public List<String> solution(String[] record) {
     // 먼저 record만큼 반복하여 문구를 채운다.

@@ -7,7 +7,12 @@ Level : x
 
 ## 문제 풀이
 ```java
-
+    for(int i = 0; i < arr.length; i++){
+  for(int j = i+1; j < arr.length; j++){
+  if(target == arr[i] + arr[j]) return true;
+  }
+  }
+  return false;
 ```
 
 ## 접근 방식
