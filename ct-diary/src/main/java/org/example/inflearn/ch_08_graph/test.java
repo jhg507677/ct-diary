@@ -4,8 +4,7 @@ import java.util.*;
 class Solution {
   public int solution(int[] nums){
 
-    nums = Arrays.stream(nums).sorted();
-
+    Arrays.sort(nums);
     int oldV = nums[0];
     int count = 0;
     ArrayList<Integer> result = new ArrayList<>();

@@ -7,7 +7,7 @@ class Solution {
 
     int resultCount = 0;
     int width = board[0].length;
-    int heigth = board.length;
+    int height = board.length;
 
 
     List<Deque<Integer>> mainBox = new ArrayList<>();
