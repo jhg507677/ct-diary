@@ -3,16 +3,21 @@ package org.example.inflearn_base.ch_01;
 import java.util.Scanner;
 
 public class q_01_01 {
+  public static int solution(String input1, char input2){
+    input1 = input1.toUpperCase();
+    input2 = Character.toUpperCase(input2);
+      char[] charArr = input1.toCharArray();
+      int result = 0;
+      for(int i = 0 ; i < charArr.length; i++){
+        if(charArr[i] == input2) result++;
+      }
+      return result;
+  }
     public static void main(String[] args){
     Scanner scan = new Scanner(System.in);
-    String input1 = scan.next().toUpperCase();
-    char input2 = scan.next().toUpperCase().charAt(0);
-    char[] charArr = input1.toCharArray();
-    int result = 0;
-    for(int i = 0 ; i < charArr.length; i++){
-      if(charArr[i] == input2) result++;
-    }
-    System.out.println(result);
+    String input1 = scan.next();
+    char input2 = scan.next().charAt(0);
+    System.out.println(solution(input1, input2));
   }
 }
 
